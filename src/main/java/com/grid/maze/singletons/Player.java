@@ -1,7 +1,15 @@
 package com.grid.maze.singletons;
 
+import lombok.Data;
+
+@Data
 public class Player {
     private static volatile Player player = null;
+
+    private String name;
+    private Integer live;
+    private Integer level;
+    private Integer exp;
 
     private Player() {}
 

@@ -9,7 +9,10 @@ import com.grid.maze.entity.Room;
 
 public class EvilFactory implements AbstractFactory {
     public Ghost getGhost() {
-        return new EvilGhost();
+        return new EvilGhost.GhostBuilder()
+                .damage(1)
+                .name("casper")
+                .build();
     }
 
     public Riddle getRiddle() {

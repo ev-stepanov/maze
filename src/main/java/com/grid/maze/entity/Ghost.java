@@ -1,5 +1,7 @@
 package com.grid.maze.entity;
 
 public interface Ghost {
-    void say();
+    void sayName();
+    void makeRiddle();
+    void usedSkill();
 }

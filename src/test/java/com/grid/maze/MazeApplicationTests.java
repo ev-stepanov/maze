@@ -1,10 +1,7 @@
 package com.grid.maze;
 
-import com.grid.maze.entity.Ghost;
-import com.grid.maze.entity.Riddle;
-import com.grid.maze.entity.Room;
+import com.grid.maze.entity.*;
 import com.grid.maze.adapters.GraphService;
-import com.grid.maze.entity.Status;
 import com.grid.maze.factories.AbstractFactory;
 import com.grid.maze.factories.Factory;
 import org.junit.Test;
@@ -38,7 +35,9 @@ public class MazeApplicationTests {
 		Riddle riddle = factory.getRiddle();
 		Room room = factory.getRoom();
 
-		ghost.say();
+		EvilGhost casper = new EvilGhost.GhostBuilder().damage(1).name("casper").build();
+		casper.sayName();
+
 		riddle.makeRiddle();
 		room.getRoom();
 	}

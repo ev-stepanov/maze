@@ -5,24 +5,26 @@ import com.grid.maze.factories.Factory;
 import com.grid.maze.singletons.Graph;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Random;
 
 @Component
 public class GoodRoom implements Room {
-    private Random r = new Random();
-    private List<Long> neighboringRooms;
     private Ghost ghost;
     private Long id;
 
     public GoodRoom() {
-        addGhostInRoom();
+        AbstractFactory factory = new Factory().getFactory(Status.GOOD);
+        Random r = new Random();
+        if (!r.nextBoolean()) {
+            this.ghost = factory.getGhost();
+        } else {
+            this.ghost = null;
+        }
     }
 
     @Override
     public void getNeighboringRooms() {
-        this.neighboringRooms = Graph.getNeighbors(id);
-        System.out.println(neighboringRooms);
+        System.out.println(Graph.getNeighbors(id));
     }
 
     @Override
@@ -43,15 +45,6 @@ public class GoodRoom implements Room {
                 System.out.println("You are loser!");
                 ghost.usedNegativeSkill();
             }
-        }
-    }
-
-    private void addGhostInRoom() {
-        AbstractFactory factory = new Factory().getFactory(Status.EVIL);
-        if (!r.nextBoolean()) {
-            this.ghost = factory.getGhost();
-        } else {
-            this.ghost = factory.getGhost();
         }
     }
 }

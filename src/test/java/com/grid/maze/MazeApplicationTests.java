@@ -32,14 +32,10 @@ public class MazeApplicationTests {
 
 	public void chooseNextRoom(AbstractFactory factory) {
 		Ghost ghost = factory.getGhost();
-		Riddle riddle = factory.getRiddle();
 		Room room = factory.getRoom();
 
 		EvilGhost casper = new EvilGhost.GhostBuilder().damage(1).name("casper").build();
 		casper.sayName();
-
-		riddle.makeRiddle();
-		room.getRoom();
 	}
 
 }

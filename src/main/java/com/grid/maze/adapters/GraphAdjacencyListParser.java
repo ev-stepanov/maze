@@ -1,7 +1,6 @@
 package com.grid.maze.adapters;
 
 import com.grid.maze.singletons.Graph;
-import com.grid.maze.entity.Vertex;
 import org.springframework.stereotype.Component;
 
 import java.io.InvalidObjectException;
@@ -20,11 +19,11 @@ public class GraphAdjacencyListParser implements ReadableAdjacencyList {
             Long currentVertex = Long.parseLong(listVertexAndHisNeighbors[0]);
 
             String[] neighborsList = listVertexAndHisNeighbors[1].split(",");
-            List<Vertex> neighbors = Arrays.stream(neighborsList)
-                    .map(neighbor -> new Vertex(Long.parseLong(neighbor)))
+            List<Long> neighbors = Arrays.stream(neighborsList)
+                    .map(Long::parseLong)
                     .collect(Collectors.toList());
 
-            Graph graph = Graph.createGraph();
+            Graph graph = new Graph();
             graph.addVertex(currentVertex, neighbors);
         }
     }

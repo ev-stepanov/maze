@@ -4,7 +4,17 @@ import com.grid.maze.entity.Room;
 
 public class EvilRoom implements Room {
     @Override
-    public void getRoom() {
-        System.out.println("evil room");
+    public void getNeighboringRooms() {
+
+    }
+
+    @Override
+    public void setIdRoom(Long id) {
+
+    }
+
+    @Override
+    public void useGhost() {
+
     }
 }

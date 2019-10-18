@@ -23,19 +23,15 @@ public class GraphService {
 
     public void readGraph() throws IOException {
         File file = new File(path);
-        List<List<Long>> incidenceMatrix = new ArrayList<>();
-        List<Long> row;
+
+        List<String> rowIncidenceMatrix = new ArrayList<>();
+
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String str;
             while ((str = bufferedReader.readLine()) != null) {
-                row = new ArrayList<>();
-                for (int i = 0; i < str.length(); i++) {
-                    row.add(Long.parseLong(str.substring(i, i + 1)));
-                }
-                incidenceMatrix.add(row);
+                rowIncidenceMatrix.add(str);
             }
         }
-
-        readableIncidenceMatrix.parse(incidenceMatrix);
+        readableIncidenceMatrix.parse(rowIncidenceMatrix);
     }
 }

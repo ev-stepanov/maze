@@ -4,37 +4,59 @@ import com.grid.maze.adapters.GraphService;
 import com.grid.maze.entity.*;
 import com.grid.maze.factories.AbstractFactory;
 import com.grid.maze.factories.Factory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.grid.maze.singletons.Graph;
+import com.grid.maze.singletons.Player;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.Scanner;
 @Component
 public class MazeComponent {
-    @Autowired
-    private Factory factory;
+    private final Factory factory;
 
-    @Autowired
-    private GraphService graphService;
+    private final GraphService graphService;
 
-    private final Map<Long, List<Long>> GRAPH = new HashMap<>();
-
-    @PostConstruct
-    private void postConstruct() throws IOException {
-        AbstractFactory factory = this.factory.getFactory(Status.EVIL);
-
-        chooseNextRoom(factory);
-
-        graphService.readGraph();
-        //enter point
+    public MazeComponent(GraphService graphService, Factory factory) {
+        this.graphService = graphService;
+        this.factory = factory;
     }
 
-    public void chooseNextRoom(AbstractFactory factory) {
+    //enter point
+    @PostConstruct
+    private void postConstruct() throws IOException {
+        Player player = Player.getInstance();
+        graphService.readGraph();
+
+        Integer finishRoom = Graph.getFinishRoom();
+
+        AbstractFactory factory = this.factory.getFactory(Status.GOOD);
+
+        long l = 0;
+        Scanner scanner = new Scanner(System.in);
+        while (player.getCurrentRoom() != finishRoom.intValue()) {
+            Room room = factory.getRoom();
+            room.setIdRoom(l);
+            room.useGhost();
+            room.getNeighboringRooms();
+
+            System.out.println("Enter next room: ");
+            l = scanner.nextLong();
+            player.moveToNextRoom(l);
+
+            player.showMyLive();
+        }
+
+        System.out.println("You are win!");
+    }
+
+    private void chooseNextRoom(AbstractFactory factory) {
+        Player player = Player.getInstance();
         Ghost ghost = factory.getGhost();
+        Demon demon = new Demon(ghost);
+        player.showMyLive();
+        player.showMyLive();
+        player.showMyLive();
         Riddle riddle = factory.getRiddle();
         Room room = factory.getRoom();
 
@@ -42,6 +64,5 @@ public class MazeComponent {
         casper.sayName();
 
         riddle.makeRiddle();
-        room.getRoom();
     }
 }

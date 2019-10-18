@@ -1,6 +1,5 @@
 package com.grid.maze.singletons;
 
-import com.grid.maze.entity.Vertex;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -9,26 +8,21 @@ import java.util.Map;
 
 @Component
 public class Graph {
-    private static volatile Graph graph;
-    private Map<Vertex, List<Vertex>> adjVertices;
+    private static final Map<Long, List<Long>> GRAPH = new HashMap<>();
 
-    private Graph() {
-        adjVertices = new HashMap<>();
+    public void addVertex(Long currentVertex, List<Long> neighbors) {
+        GRAPH.put(currentVertex, neighbors);
     }
 
-    public static Graph createGraph() {
-        if (graph == null) {
-            synchronized (Graph.class) {
-                if (graph == null) {
-                    graph = new Graph();
-                }
-            }
-        }
-
-        return graph;
+    public static List<Long> getNeighbors(Long vertex) {
+        return GRAPH.get(vertex);
     }
 
-    public void addVertex(Long id, List<Vertex> neighbors) {
-        adjVertices.putIfAbsent(new Vertex(id), neighbors);
+    public static void printNeighbors (Long vertex) {
+        System.out.println(GRAPH.get(vertex));
+    }
+
+    public static Integer getFinishRoom() {
+        return GRAPH.size() - 1;
     }
 }

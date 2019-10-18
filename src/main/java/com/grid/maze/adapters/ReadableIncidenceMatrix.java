@@ -4,5 +4,5 @@ import java.io.InvalidObjectException;
 import java.util.List;
 
 public interface ReadableIncidenceMatrix {
-    void parse(List<List<Long>> incidenceMatrix) throws InvalidObjectException;
+    void parse(List<String> incidenceMatrix) throws InvalidObjectException;
 }

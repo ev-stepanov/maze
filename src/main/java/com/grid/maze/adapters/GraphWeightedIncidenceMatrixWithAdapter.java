@@ -7,26 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GraphIncidenceMatrixAdapter implements ReadableIncidenceMatrix {
+public class GraphWeightedIncidenceMatrixWithAdapter implements ReadableIncidenceMatrix{
     private final GraphAdjacencyListParser graphAdjacencyListParser;
 
-    public GraphIncidenceMatrixAdapter(GraphAdjacencyListParser graphAdjacencyListParser) {
+    public GraphWeightedIncidenceMatrixWithAdapter(GraphAdjacencyListParser graphAdjacencyListParser) {
         this.graphAdjacencyListParser = graphAdjacencyListParser;
     }
-
     @Override
-    public void parse(List<List<Long>> incidenceMatrix) throws InvalidObjectException {
+    public void parse(List<String> incidenceMatrix) throws InvalidObjectException {
         graphAdjacencyListParser.parse(convert(incidenceMatrix));
     }
 
-    private List<String> convert(List<List<Long>> incidenceMatrix) {
+    private List<String> convert(List<String> incidenceMatrix) {
         List<String> adjacencyList = new ArrayList<>();
         StringBuilder sb;
         for (int i = 0; i < incidenceMatrix.size(); i++) {
+            final String[] listVertex = incidenceMatrix.get(i).replace(" ", "").split(",");
             sb = new StringBuilder();
             sb.append(i).append("-");
-            for (int j = 0; j < incidenceMatrix.get(i).size(); j++) {
-                Long value = incidenceMatrix.get(i).get(j);
+            for (int j = 0; j < listVertex.length; j++) {
+                long value = listVertex[j].equals("0") ? 0 : 1;
                 if (i != j && value == 1) {
                     sb.append(j).append(",");
                 }

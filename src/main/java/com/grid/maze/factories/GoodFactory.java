@@ -6,7 +6,9 @@ import com.grid.maze.entity.GoodRoom;
 import com.grid.maze.entity.Ghost;
 import com.grid.maze.entity.Riddle;
 import com.grid.maze.entity.Room;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GoodFactory implements AbstractFactory {
     public Ghost getGhost() {
         return new GoodGhost();

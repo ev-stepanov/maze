@@ -1,11 +1,13 @@
 package maze.singletons;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @Data
+@Component
 public class Player {
     private static volatile Player player = null;
 

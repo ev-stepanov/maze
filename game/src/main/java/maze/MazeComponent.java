@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 @Component
@@ -27,12 +28,20 @@ public class MazeComponent {
     //enter point
     @PostConstruct
     private void postConstruct() throws IOException {
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        final Integer integer = list.peekLast();
+        System.out.println(integer);
+
         Player player = Player.getInstance();
         graphService.readGraph();
 
         Integer finishRoom = Graph.getFinishRoom();
 
-        AbstractFactory factory = this.factory.getFactory(Status.GOOD);
+        AbstractFactory factory = this.factory.getFactory(Status.EVIL);
 
         long l = 0;
         Scanner scanner = new Scanner(System.in);

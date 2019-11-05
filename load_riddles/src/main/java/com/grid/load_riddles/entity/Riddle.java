@@ -18,4 +18,14 @@ public class Riddle {
     @OneToOne
     @JoinColumn(name = "answer")
     private Answers answers;
+
+    @Override
+    public String toString() {
+        return  "riddle='" + riddle + '\'' +
+                ", answers= " +
+                "a) " + answers.getA() +
+                "b) " + answers.getB() +
+                "c) " + answers.getC() +
+                '}';
+    }
 }

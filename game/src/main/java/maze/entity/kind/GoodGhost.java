@@ -2,7 +2,9 @@ package maze.entity.kind;
 
 import maze.singletons.Player;
 import maze.entity.interfaces.Ghost;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GoodGhost implements Ghost {
     private Player player;
     private Integer damage;

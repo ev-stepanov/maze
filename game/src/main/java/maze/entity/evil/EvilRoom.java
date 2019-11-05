@@ -5,9 +5,11 @@ import maze.singletons.Graph;
 import maze.entity.interfaces.Ghost;
 import maze.entity.interfaces.Room;
 import maze.entity.enums.Status;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
+@Component
 public class EvilRoom implements Room {
     private Ghost ghost;
     private Long id;

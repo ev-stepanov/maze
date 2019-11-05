@@ -1,21 +1,26 @@
 package maze.entity.evil;
 
-import maze.singletons.Player;
 import lombok.Data;
+import maze.entity.enums.Status;
 import maze.entity.interfaces.Ghost;
-
-import java.util.Random;
+import maze.entity.interfaces.Riddle;
+import maze.factories.Factory;
+import maze.singletons.Player;
+import org.springframework.stereotype.Component;
 
 @Data
+@Component
 public class EvilGhost implements Ghost {
     private Player player;
     private String name;
     private Integer damage;
+    private Riddle riddle;
 
     private EvilGhost(GhostBuilder ghostBuilder) {
         this.name = ghostBuilder.name;
         this.damage = ghostBuilder.damage;
         this.player = Player.getInstance();
+        this.riddle = new Factory().getFactory(Status.EVIL).getRiddle();
     }
 
     @Override
@@ -25,8 +30,8 @@ public class EvilGhost implements Ghost {
 
     @Override
     public Boolean makeRiddle() {
-        Random random = new Random();
-        return random.nextBoolean();
+        riddle.makeRiddle();
+        return true;
     }
 
 
